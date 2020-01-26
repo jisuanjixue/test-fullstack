@@ -1,42 +1,75 @@
-# Fullstack
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
 
-### Context
+[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
+[travis-url]: https://travis-ci.org/nestjs/nest
+[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
+[linux-url]: https://travis-ci.org/nestjs/nest
+  
+  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
+<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
+<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
+  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-Build a [Hacker News](https://news.ycombinator.com/) like App but for lightning talk polling.
+## Description
 
-A lightning talk is a very short presentation lasting only a few minutes, given at a conference or a meetup etc.
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-Polling is often needed for the organizers to understand what is more interesting, or for people to decide what should go on stage.
+## Installation
 
-### Requirements
+```bash
+$ npm install
+```
 
-#### User Stories
+## Running the app
 
-1. When a user opens the page, he/she should see a list of lighting talks submitted by the users, ordered by rating \(poll amount\).
-2. If there's no lighting talk yet, there should be some description and some text to encourage the users to submit their own talks.
-3. For each of the talks in the list, the user could vote it by clicking a button.
-4. After voting it, the user should see an updated version of the list, eg. with new talks and new sorting order etc.
-5. The users should be able to submit new lighting talks anytime. The required information is the title and description, while the system should also save the submit time and user.
-6. After submitting a topic, the user should see an updated version of the list.
+```bash
+# development
+$ npm run start
 
-#### Functionality
+# watch mode
+$ npm run start:dev
 
-* The frontend part should be a single page application rendered in the frontend and load data from a RESTful API \(not rendered from backend\).
-* The API should follow typical RESTful API design pattern.
-* Provide proper unit test.
+# production mode
+$ npm run start:prod
+```
 
-#### Tech stack
+## Test
 
-* Use React for the frontend.
-* Do not use any scaffolding tool such as `create-react-app`, or any CSS framework, but try to use some JS frameworks such as React-Router, and packing tools such as Webpack or Parcel etc.
-* Use any backend framework as you like. Use any DB for storing the data, or if you prefer, only using the memory \(with no permanent storage\) could just work.
+```bash
+# unit tests
+$ npm run test
 
-#### Advanced requirements
+# e2e tests
+$ npm run test:e2e
 
-_These are used for some further challenges. You can safely skip them if you are not asked to do any, but feel free to try out._
+# test coverage
+$ npm run test:cov
+```
 
-* Make it responsive.
-* Provide a form validation strategy.
-* Provide an error handling strategy, such as the UI/UX, and different handling for different errors etc.
-* Provide a complete user auth \(authentication/authorization/etc\) strategy, such as OAuth.
-* Provide a complete logging \(when/how/etc\) strategy.
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+## Stay in touch
+
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+  Nest is [MIT licensed](LICENSE).
