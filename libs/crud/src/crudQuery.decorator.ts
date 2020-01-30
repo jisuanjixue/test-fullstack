@@ -12,7 +12,6 @@ export class ICrudQuery {
 }
 
 export const CrudQuery = createParamDecorator((name = 'query', req: Request) => {
-  console.log('req.query', req.query)
   try {
     return JSON.parse(req.query[name])
   } catch (e) {

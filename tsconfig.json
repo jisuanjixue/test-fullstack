@@ -22,6 +22,12 @@
       ],
       "@libs/crud/*": [
         "libs/crud/src/*"
+      ],
+      "@libs/common": [
+        "libs/common/src"
+      ],
+      "@libs/common/*": [
+        "libs/common/src/*"
       ]
     },
     "lib": [

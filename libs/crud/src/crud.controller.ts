@@ -43,8 +43,6 @@ export class CrudController {
       sort = get(this.crudOptions, 'routes.find.sort', undefined)
     } = query;
 
-    console.log('queryqueryquery', query)
-
     if (skip < 1) {
       skip = (page - 1) * limit
     }

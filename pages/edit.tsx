@@ -19,7 +19,6 @@ export default class extends Component<dataProps> {
     if(id){
       const res = await fetch(`http://localhost:3000/polls/${id}`);
       const data = await res.json();
-      console.log(data)
       return { data: data }
     } else {
       return {
@@ -33,21 +32,28 @@ export default class extends Component<dataProps> {
   }
 
   async postPoll(params) {
+    const token = sessionStorage.getItem('token');
     const res = await fetch('http://localhost:3000/polls', {
       method: 'post',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(params),
     });
     const data = await res.json();
-    this.setState({
-      errors: data.errors
-    })
+    console.log('postPoll', data)
+    if(data.errors){
+      this.setState({
+        errors: data.errors
+      });
+    } else {
+      location.href="/"
+    }
+    
   }
 
   addPoll = (e): void => {
-    console.log('addPoll', this.state.field)
     this.postPoll(this.state.field);
     e.preventDefault();
   }
@@ -57,15 +63,12 @@ export default class extends Component<dataProps> {
     const name = e.target.name;
     const {field} = this.state;
     field[name]= value;
-    this.setState({field}, () => {
-      console.log(this.state)
-    });
+    this.setState({field});
   }
 
   render() {
     const {data} = this.props;
     const {field, errors} = this.state;
-    console.log(errors)
     return (
       <div>
         <form>

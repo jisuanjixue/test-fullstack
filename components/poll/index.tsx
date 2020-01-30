@@ -7,7 +7,7 @@ export const Poll = (props) => {
     return (
       <div className="item">
         <p>{item.title}----</p>
-        <p>voted: {item.poll}</p>
+        <p>voted: {item.poll || 0}</p>
         <button onClick={onVote} id={item._id} value={item.poll}>vote</button>
         {
           isAdmin && <button onClick={onDelete} id={item._id}>del</button>

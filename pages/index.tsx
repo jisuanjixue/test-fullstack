@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
+import Link from 'next/link'
 import fetch from 'isomorphic-unfetch';
+import Layout from '../components/layout';
 import { Poll } from '../components/poll';
 import _ from 'lodash';
+import io from 'socket.io-client';
 
 export default class extends Component {
   props: { 
@@ -10,13 +13,14 @@ export default class extends Component {
   };
 
   state = {
-    list: []
+    list: [],
+    user: null
   }
 
   socket: any
 
   componentDidMount() {
-    this.connectWebsocket()
+    this.connectWebsocket();
   }
 
   static async getInitialProps(context){
@@ -28,7 +32,7 @@ export default class extends Component {
       "limit": 0,
       "page": 1,
       "populate": "desc"
-  };
+    };
     const res = await fetch(`http://localhost:3000/polls?query=${JSON.stringify(options)}`);
     const data = await res.json();
     return { data: data.data, admin: path.indexOf('?admin=true') >= 0}
@@ -45,11 +49,16 @@ export default class extends Component {
     if(data._id === id) {
       const list = this.props.data;
       _.remove(list, (li: any, i) => {
-        console.log(li)
         return li._id === id;
       });
-      this.setState({list})
-      alert('delete ok');
+      this.setState({list}, () => {
+        this.socket.send(
+          JSON.stringify({
+            event: 'events',
+            data: 'vote',
+          }),
+        );
+      })
     } else {
       alert('delete fail');
     }
@@ -76,8 +85,14 @@ export default class extends Component {
           }
         }
       });
-      this.setState({list});
-      alert('vote ok');
+      this.setState({list}, () => {
+        this.socket.send(
+          JSON.stringify({
+            event: 'events',
+            data: 'vote',
+          }),
+        );
+      });
     } else {
       alert('vote fail');
     }
@@ -87,8 +102,8 @@ export default class extends Component {
     const socket = new WebSocket('ws://localhost:8080');
     this.socket = socket;
     const that = this;
+    
     socket.onopen = function() {
-      console.log('Connected');
       socket.send(
         JSON.stringify({
           event: 'events',
@@ -98,13 +113,14 @@ export default class extends Component {
       socket.onmessage = function(res) {
         const data = JSON.parse(res.data);
         if(data.data === 'vote'){
-          console.log('vote');
           window.location.reload();
         }
       };
+      
       socket.onclose = () => {
         console.log('not Connected');
       }
+
     };
   }
 
@@ -118,41 +134,33 @@ export default class extends Component {
     let poll = e.target.getAttribute('value') || 0;
     poll = parseInt(poll) + 1;
     this.votePoll(id, poll);
-    this.socket.send(
-      JSON.stringify({
-        event: 'events',
-        data: 'vote',
-      }),
-    );
+    
+    
   }
 
   render() {
     const {data, admin} = this.props;
     return (
-      <div>
-        {
-          data && data.length > 0 ? (
-            <h1>the polls are: </h1>
-          ) : (
-            <h1>no poll!</h1>
-          )
-        }
-        <a href="/edit">add a post</a>
-        {
-          data.map((item, i) => {
-            return (
-              <Poll 
-                key={item._id}
-                dataSource={item}
-                isAdmin={admin}
-                onVote={this.onVotePoll}
-                onDelete={this.onDeletePoll}
-              ></Poll>
+      <Layout>
+          <p>
+            <Link href="/edit"><span>add a post</span></Link>
+          </p>
+          {
+            data && data.length > 0 ? data.map((item, i) => {
+              return (
+                <Poll 
+                  key={item._id}
+                  dataSource={item}
+                  isAdmin={admin}
+                  onVote={this.onVotePoll}
+                  onDelete={this.onDeletePoll}
+                ></Poll>
+              )
+            }) : (
+              <p>no data, you could add one</p>
             )
-          })
-        }
-      </div>
-
+          }
+        </Layout>
     );
   }
 }

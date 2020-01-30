@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { PollsController } from './polls.controller';
-import { PollsService } from './polls.service';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   controllers: [PollsController],
-  providers: [PollsService]
+  providers: [JwtStrategy]
 })
 export class PollsModule {}

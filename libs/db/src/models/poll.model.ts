@@ -20,4 +20,10 @@ export class Poll {
   @prop()
   poll: number
 
+  @prop({select: false})
+  userId: string
+
+  @prop()
+  userName: string
+
 }
